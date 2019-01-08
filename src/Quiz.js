@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './Quiz.css';
 import './bootstrap.min.css';
 
@@ -10,6 +11,7 @@ const Quiz = ({turnData, highlight, onAnswerSelected}) => {
       <Hero />
       <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
       <Continue />
+      <p><Link to="/add">Add a new character</Link></p>
       <Footer {...turnData} />
     </div> ) };
 
