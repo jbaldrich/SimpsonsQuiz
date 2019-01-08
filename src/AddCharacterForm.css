@@ -1,0 +1,12 @@
+.add-character-form {
+	width: 80%;
+	margin: 50px 10%;
+}
+
+.add-character-form__input {
+	margin-bottom: 20px;
+}
+
+.add-character-form__input > label {
+	display: block;
+}

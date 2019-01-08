@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './index.css';
 import Quiz from './Quiz';
+import AddCharacterForm from './AddCharacterForm';
 import * as serviceWorker from './serviceWorker';
-import {shuffle, sample} from "underscore";
+import {shuffle, sample} from 'underscore';
 
 const characters = [
 	{
@@ -48,15 +49,6 @@ const onAnswerSelected = answer => {
 	const isCorrect = state.turnData.character.quotes.some(quote => quote === answer);
 	state.highlight = isCorrect ? 'correct' : 'wrong';
 	render();
-};
-
-const AddCharacterForm = match => {
-	return(
-		<div>
-			<h1>Add Character</h1>
-			<p>{JSON.stringify(match)}</p>
-		</div>
-	);
 };
 
 const App = () => <Quiz {...state} onAnswerSelected={onAnswerSelected} />;
