@@ -7,6 +7,7 @@ class CharacterForm extends React.Component {
 		this.state = {
 			name: '',
 			imageUrl: '',
+			imageSource: '',
 			quotes: [],
 			quoteTemp: ''
 		};
@@ -46,6 +47,10 @@ class CharacterForm extends React.Component {
 					<label htmlFor="quoteTemp">New Quote</label>
 					<input type="text" name="quoteTemp" value={this.state.quoteTemp} onChange={this.onFieldChange} />
 					<input type="button" value="+" onClick={this.handleAddQuote} />
+				</div>
+				<div className="add-character-form__input">
+					<label htmlFor="imageSource">Image Source</label>
+					<input type="text" name="imageSource" value={this.state.imageSource} onChange={this.onFieldChange} />
 				</div>
 				<input type="submit" value="Add" />
 			</form>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, WithRouter } from 'react-router-dom';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 import './index.css';
 import Quiz from './Quiz';
 import AddCharacterForm from './AddCharacterForm';
@@ -40,10 +40,14 @@ const getTurnData = characters => {
 	}
 };
 
-const state = {
-	turnData: getTurnData(characters),
-	highlight: 'none'
+const resetState = () => {
+	return {
+		turnData: getTurnData(characters),
+		highlight: 'none'
+	};
 };
+
+let state = resetState();
 
 const onAnswerSelected = answer => {
 	const isCorrect = state.turnData.character.quotes.some(quote => quote === answer);
@@ -51,11 +55,22 @@ const onAnswerSelected = answer => {
 	render();
 };
 
-const App = () => <Quiz {...state} onAnswerSelected={onAnswerSelected} />;
-
-const characterWrapper = () => {
-	return <AddCharacterForm onAddCharacter={ character => {characters.push(character);console.log(characters)} }/>
+const App = () => { return <Quiz {...state}
+	onAnswerSelected={onAnswerSelected}
+	onContinue={ () => {
+			state = resetState();
+			render();
+		}
+	} />
 };
+
+const characterWrapper = withRouter( ({ history }) => 
+	<AddCharacterForm onAddCharacter={ character => {
+		characters.push(character);
+		console.log(characters);
+		history.push('/');
+	} }/>
+);
 
 const render = () => {
 	ReactDOM.render(
