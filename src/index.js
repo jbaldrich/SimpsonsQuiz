@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, WithRouter } from 'react-router-dom';
 import './index.css';
 import Quiz from './Quiz';
 import AddCharacterForm from './AddCharacterForm';
@@ -53,12 +53,16 @@ const onAnswerSelected = answer => {
 
 const App = () => <Quiz {...state} onAnswerSelected={onAnswerSelected} />;
 
+const characterWrapper = () => {
+	return <AddCharacterForm onAddCharacter={ character => {characters.push(character);console.log(characters)} }/>
+};
+
 const render = () => {
 	ReactDOM.render(
 		<BrowserRouter>
 			<React.Fragment>
 				<Route exact path='/' component={App} />
-				<Route path='/add' component={AddCharacterForm} />
+				<Route path='/add' component={characterWrapper} />
 			</React.Fragment>
 		</BrowserRouter>, document.getElementById('root')
 	);
