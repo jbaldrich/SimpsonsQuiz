@@ -11,12 +11,12 @@ class CharacterForm extends React.Component {
 			quotes: [],
 			quoteTemp: ''
 		};
-		// Makes sure the value of this in the constructor will be the same as the value of this in the method, no matter how this is called
+		// Makes sure the value of 'this' in the constructor will be the same as the value of 'this' in the method, no matter how 'this' is called
 		this.onFieldChange = this.onFieldChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleAddQuote = this.handleAddQuote.bind(this);
 	}
-	handleSubmit(event){
+	handleSubmit(event) {
 		event.preventDefault();
 		this.props.onAddCharacter(this.state);
 	}
@@ -43,7 +43,7 @@ class CharacterForm extends React.Component {
 					<input type="text" name="imageUrl" value={this.state.imageUrl} onChange={this.onFieldChange} />
 				</div>
 				<div className="add-character-form__input">
-					{this.state.quotes.map(quote => <p key={quote}>{quote}</p>)}
+					{this.state.quotes.map( quote => <p key={quote}>{quote}</p> )}
 					<label htmlFor="quoteTemp">New Quote</label>
 					<input type="text" name="quoteTemp" value={this.state.quoteTemp} onChange={this.onFieldChange} />
 					<input type="button" value="+" onClick={this.handleAddQuote} />
@@ -62,7 +62,7 @@ const AddCharacterForm = ({match, onAddCharacter}) => {
 	return(
 		<div className="add-character-form">
 			<h1>Add Character</h1>
-			<CharacterForm onAddCharacter={onAddCharacter}/>
+			<CharacterForm onAddCharacter={onAddCharacter} />
 		</div>
 	);
 };

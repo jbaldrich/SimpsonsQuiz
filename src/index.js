@@ -5,13 +5,13 @@ import './index.css';
 import Quiz from './Quiz';
 import AddCharacterForm from './AddCharacterForm';
 import * as serviceWorker from './serviceWorker';
-import {shuffle, sample} from 'underscore';
+import { shuffle, sample } from 'underscore';
 
 const characters = [
 	{
 		name: 'Homer Simpson',
-		imageUrl: 'https://www.elcomercio.com/files/article_main/uploads/2017/05/12/5916775bc3359.jpeg',
-		imageSource: 'Somewhere',
+		imageUrl: 'https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png',
+		imageSource: 'Wikipedia',
 		quotes: [
 			"D'oh!",
 			'Mmmmmm',
@@ -21,7 +21,7 @@ const characters = [
 	{
 		name: 'Bart Simpson',
 		imageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/aa/Bart_Simpson_200px.png',
-		imageSource: 'Someotherwhere',
+		imageSource: 'Wikipedia',
 		quotes: [
 			"I Didn't Do It. Nobody Saw Me Do It. You Can't Prove Anything.",
 			'Oh! My Ovaries!',
@@ -31,11 +31,11 @@ const characters = [
 ];
 
 const getTurnData = characters => {
-	const allQuotes = characters.reduce( (p, c, i) => p.concat(c.quotes), [] );
+	const allQuotes = characters.reduce( (p, c, i) => p.concat( c.quotes ), [] );
 	const fourRandomQuotes = shuffle(allQuotes).slice(0,4);
 	const answer = sample(fourRandomQuotes);
 	return {
-		character: characters.find( (character) => character.quotes.some( (quote) => quote === answer ) ),
+		character: characters.find( character => character.quotes.some( quote => quote === answer ) ),
 		quotes: fourRandomQuotes
 	}
 };
@@ -50,24 +50,29 @@ const resetState = () => {
 let state = resetState();
 
 const onAnswerSelected = answer => {
-	const isCorrect = state.turnData.character.quotes.some(quote => quote === answer);
+	const isCorrect = state.turnData.character.quotes.some( quote => quote === answer );
 	state.highlight = isCorrect ? 'correct' : 'wrong';
 	render();
 };
 
-const App = () => { return <Quiz {...state}
-	onAnswerSelected={onAnswerSelected}
-	onContinue={ () => {
-			state = resetState();
-			render();
-		}
-	} />
+// Main App component
+const App = () => {
+	return( 
+		<Quiz {...state}
+			onAnswerSelected={onAnswerSelected}
+			onContinue={ () => {
+					state = resetState();
+					render();
+				}
+			}
+		/>
+	);
 };
 
 const characterWrapper = withRouter( ({ history }) => 
 	<AddCharacterForm onAddCharacter={ character => {
 		characters.push(character);
-		console.log(characters);
+		console.log(characters); // Open the console to check if the new character has been added correctly
 		history.push('/');
 	} }/>
 );
